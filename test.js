@@ -69,61 +69,90 @@ const LearnerSubmissions = [
     learner_id: 132,
     assignment_id: 2,
     submission: {
-      submitted_at: "2023-03-07",
+      submitted_at: "2023-03-07",//2023-02-27
       score: 140
     }
   }
 ];
 
 
+
+
 //get ids from the array 
 const Ids = [...new Set(LearnerSubmissions.map(obj => obj.learner_id))];
-console.log( Ids)
+console.log( Ids) //125,132
+
 
 // Creates empty objects
 const students = Array.from({ length: Ids.length }, () => ({})); 
-console.log(students)
-
-let studId = ""
-let score1 = 0
-let score2 = 0
-let avgScore = 0
-
-for(let i = 0 ;i<=Ids.length;i++){
-
-console.log(Ids[i])
+// add keys
+let keys = ['studId','score1','score2','avgScore']
 
 
-}
+//fill the array with keys a=but no values yet
+students.forEach(student => {
+  keys.forEach(key => {
+      student[key] = '';  
+  });
+});
 
+//  console.log(students)
+
+
+
+
+
+
+
+
+
+
+ let avgScore=0;
+ let score1 =0
+ let score2 =0
+
+for(let i=0;i<students.length;i++){
+
+//due dates 
+/*id: 1,
+      name: "Declare a Variable",
+      due_at: "2023-01-25",
+
+      id: 2,
+      name: "Write a Function",
+      due_at: "2023-02-27",
+      points_possible: 150
+      */
 LearnerSubmissions.forEach(obj => {
 
-  // studId = obj.learner_id;
-  studId = 125;
+  if(obj.learner_id === Ids[i] && obj.assignment_id == 1){
+    if(new Date(obj.submission.submitted_at) > new Date('2023-01-25')){
+      score1 =  (obj.submission.score) -15
+    }else{
+      score1 =  (obj.submission.score) 
+    }
+  }
 
-  if(obj.learner_id === 125 && obj.assignment_id !== 3){
-    avgScore += obj.submission.score
+  if(obj.learner_id === Ids[i] && obj.assignment_id == 2){
+    if(new Date(obj.submission.submitted_at) > new Date('2023-02-27')){
+
+      score2 =  (obj.submission.score) - 15
+    }else{
+      score2 =  (obj.submission.score) 
+    }
   
   }
 
-  if(obj.learner_id === 125 && obj.assignment_id == 1){
-   score1 =  (obj.submission.score / 50).toFixed(2); 
-  }
 
-  if(obj.learner_id === 125 && obj.assignment_id == 2){
-    score2 = (obj.submission.score / 150).toFixed(2); 
-  }
+ 
+})
 
-
-
-    
-});
-
-students[0].id = studId
-students[0].avg = avgScore
-students[0].score1 = score1
-students[0].score2 = score2
+students[i].studId=Ids[i]
+students[i].score1=(score1/50).toFixed(2)
+students[i].score2=(score2/150).toFixed(2)
+students[i].avgScore=(score1 + score2 )/200
 
 
+}
 
 console.log(students)
