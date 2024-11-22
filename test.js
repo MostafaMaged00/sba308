@@ -102,38 +102,29 @@ students.forEach(student => {
 
 
 
+//get due dates from AssignmentGroup 
+
+console.log(AssignmentGroup.assignments[0].due_at)
 
 
-
-
-
+// declare empty variables
  let avgScore=0;
  let score1 =0
  let score2 =0
 
 for(let i=0;i<students.length;i++){
 
-//due dates 
-/*id: 1,
-      name: "Declare a Variable",
-      due_at: "2023-01-25",
-
-      id: 2,
-      name: "Write a Function",
-      due_at: "2023-02-27",
-      points_possible: 150
-      */
 LearnerSubmissions.forEach(obj => {
 
-  if(obj.learner_id === Ids[i] && obj.assignment_id == 1){
-    if(new Date(obj.submission.submitted_at) > new Date('2023-01-25')){
+  if(obj.learner_id === Ids[i] && obj.assignment_id == AssignmentGroup.assignments[0].id ){
+    if(new Date(obj.submission.submitted_at) > new Date(AssignmentGroup.assignments[0].due_at)){
       score1 =  (obj.submission.score) -15
     }else{
       score1 =  (obj.submission.score) 
     }
   }
 
-  if(obj.learner_id === Ids[i] && obj.assignment_id == 2){
+  if(obj.learner_id === Ids[i] && obj.assignment_id == AssignmentGroup.assignments[1].id){
     if(new Date(obj.submission.submitted_at) > new Date('2023-02-27')){
 
       score2 =  (obj.submission.score) - 15
@@ -142,9 +133,8 @@ LearnerSubmissions.forEach(obj => {
     }
   
   }
+  
 
-
- 
 })
 
 students[i].studId=Ids[i]
@@ -154,5 +144,5 @@ students[i].avgScore=(score1 + score2 )/200
 
 
 }
-
-console.log(students)
+const result = students
+console.log( result)

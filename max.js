@@ -74,13 +74,21 @@ const CourseInfo = {
       }
     }
   ];
-
-const distinctIds = [...new Set(LearnerSubmissions.map(obj => obj.learner_id))];
-console.log(distinctIds)
-const studentz = distinctIds.map(id => ({
-    id,
-    name: "",
-    value: 0
-  }));
+  const firstId = LearnerSubmissions[0].learner_id;
+  console.log(firstId);  // Output: 1
   
-  console.log(studentz);
+  for (let i = 0; i < LearnerSubmissions.length; i++) {
+    const id = LearnerSubmissions[i].learner_id;
+    const assign = LearnerSubmissions[i].assignment_id;
+    let score;
+    if(assign == 1){
+       score = (LearnerSubmissions[i].submission.score / 50).toFixed(2);
+    }else if(assign == 2){
+       score = (LearnerSubmissions[i].submission.score / 150).toFixed(2);
+    }
+   
+
+  
+
+    console.log(`ID: ${id}, Name: ${assign} ,score: ${score}`);
+  }
